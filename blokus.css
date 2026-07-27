@@ -1,0 +1,236 @@
+/* Board */
+#board {
+  position: absolute;
+  border: solid black;
+  border-width: 1px;
+  width: 518px;
+  height: 518px;
+  background-color: #fff9c4;
+  background-image:
+    linear-gradient(#d4c870 1px, transparent 1px),
+    linear-gradient(90deg, #d4c870 1px, transparent 1px);
+  background-size: 37px 37px;
+  background-position: -1px -1px;
+}
+@media all and (min-width: 980px) {
+  #board { left: 210px; top: 19px; }
+}
+@media not all and (min-width: 980px) {
+  #board { left: 19px; top: 10px; }
+}
+
+/* Markers - ring style visible through pieces */
+.marker, .violet-marker, .orange-marker {
+  position: absolute;
+  width: 31px;
+  height: 31px;
+  border-radius: 31px;
+  border: 2px solid;
+  background-color: transparent;
+  z-index: 10;
+}
+.violet-marker {
+  left: 151px;
+  top: 151px;
+  border-color: var(--bright-violet);
+}
+.orange-marker {
+  left: 336px;
+  top: 336px;
+  border-color: var(--bright-orange);
+}
+
+/* Highlight animations */
+.block0highlight {
+  animation-duration: 2s;
+  animation-iteration-count: 3;
+  animation-name: animation0;
+  background-color: var(--violet);
+  box-shadow: inset 0 0 0 2px var(--bright-violet);
+}
+@keyframes animation0 {
+  0% { background-color: var(--violet); }
+  50% { background-color: var(--bright-violet); }
+  100% { background-color: var(--violet); }
+}
+.block1highlight {
+  animation-duration: 2s;
+  animation-iteration-count: 3;
+  animation-name: animation1;
+  background-color: var(--orange);
+  box-shadow: inset 0 0 0 2px var(--bright-orange);
+}
+@keyframes animation1 {
+  0% { background-color: var(--orange); }
+  50% { background-color: var(--bright-orange); }
+  100% { background-color: var(--orange); }
+}
+
+/* Pieces */
+.piece {
+  transition-property: transform, left, top;
+  transition-duration: 0.1s;
+  transition-timing-function: linear;
+  transform-origin: 18px 18px;
+}
+.dragging { transition-property: transform; }
+.rotate-left { transition-property: none; transform: rotate(90deg); }
+.rotate-right { transition-property: none; transform: rotate(-90deg); }
+.rotate-flip { transition-property: none; transform: perspective(100px) rotateY(180deg); }
+@media all and (min-width: 980px) {
+  .active .block0, .active .block1 { cursor: pointer; }
+}
+@media not all and (min-width: 980px) {
+  .unselected { transform: scale(0.5, 0.5); }
+  .selected { filter: drop-shadow(0 3px 3px rgba(0, 0, 0, 0.4)); }
+}
+
+/* Piece area */
+#piece-area {
+  position: absolute;
+  left: 20px;
+  padding: 10px;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+@media all and (min-width: 980px) {
+  #piece-area { top: 575px; width: 945px; height: 420px; }
+}
+@media not all and (min-width: 980px) {
+  #piece-area { top: 340px; width: 260px; height: 100px; }
+}
+.active-area { background-color: #eee; }
+.inactive-area { background-color: #ddd; }
+
+/* Opponents piece area */
+#opponents-piece-area {
+  position: absolute;
+  left: 20px;
+  top: 20px;
+  width: 185px;
+  height: 480px;
+  padding: 10px;
+  border-radius: 5px;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+@media not all and (min-width: 980px) {
+  #opponents-piece-area { display: none; }
+}
+#opponents-pieces { position: relative; }
+
+/* Piece controls text */
+#piece-controls {
+  position: absolute;
+  left: 210px;
+  top: 548px;
+  font-size: 13px;
+  color: #666;
+  font-style: italic;
+}
+@media not all and (min-width: 980px) {
+  #piece-controls { left: 20px; top: 445px; }
+}
+
+/* Right pane */
+@media not all and (min-width: 980px) {
+  .right-pane { display: none; }
+}
+.right-pane .logo {
+  position: absolute;
+  left: 740px;
+  top: 20px;
+  width: 170px;
+  text-align: right;
+  font: 28px "Russo One", sans-serif;
+  line-height: 120%;
+}
+.right-pane .violet-scoreboard {
+  position: absolute;
+  left: 750px;
+  top: 110px;
+  width: 140px;
+  color: var(--violet);
+  border-spacing: 0px;
+}
+.right-pane .orange-scoreboard {
+  position: absolute;
+  left: 750px;
+  top: 250px;
+  width: 140px;
+  color: var(--orange);
+  border-spacing: 0px;
+}
+.right-pane .scoreboard-name { font-weight: bold; }
+.right-pane .scoreboard-time { font-weight: bold; text-align: right; }
+.right-pane .scoreboard-score { font-weight: bold; text-align: right; }
+
+/* Toolbar (mobile only) */
+@font-face {
+  font-family: FontAwesome;
+  src: url(//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/fonts/fontawesome-webfont.woff2?v=4.7.0) format("woff2"), url(//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/fonts/fontawesome-webfont.woff?v=4.7.0) format("woff");
+}
+#handler { position: absolute; left: 270px; top: 0; width: 50px; height: 10px; background-color: #ccc; }
+@media all and (min-width: 980px) { #handler { display: none; } }
+#handlerDownIcon { width: 5px; height: 5px; margin-left: 21px; border: solid #333; border-width: 2px 2px 0 0; transform: rotate(135deg); }
+#toolbar { position: absolute; top: 0; left: 0; width: 320px; height: 40px; z-index: 100; background: rgba(0,0,0,0.85); transition: top 0.4s ease; }
+@media all and (min-width: 980px) { #toolbar { display: none; } }
+#toolbar.closed { top: -40px; }
+#toolbar ul { float: left; list-style: none; padding: 0; margin: 0; }
+#toolbar ul:last-child { float: right; }
+#toolbar li { float: left; }
+#toolbar button { width: 80px; height: 40px; border: none; color: white; background: transparent; font-family: FontAwesome; font-size: 24px; font-weight: bold; text-align: center; border-radius: 0; }
+#toolbar button:active { background-color: #008aaa; }
+#help { position: absolute; top: 10px; left: 5px; width: 280px; padding: 15px; background-color: #333; color: white; border-radius: 10px; z-index: 50; }
+#help.closed { display: none; }
+#help button { width: 180px; height: 40px; font-family: sans-serif; font-size: 1.2rem; }
+#help .buttons { bottom: 1rem; text-align: center; }
+
+/* Main styles */
+:root {
+  --violet: #63d;
+  --orange: #f72;
+  --bright-violet: #a385eb;
+  --bright-orange: #ffad7a;
+}
+body { background-color: #ffffff; font-family: sans-serif; }
+.container { position: relative; margin: 0 auto; }
+@media all and (min-width: 980px) { .container { width: 980px; } }
+@media not all and (min-width: 980px) { .container { width: 320px; } }
+.block0 { background-color: var(--violet); }
+.block1 { background-color: var(--orange); }
+#message { position: absolute; padding: 5px; text-align: center; font-weight: bold; background-color: #bdf; visibility: hidden; }
+@media all and (min-width: 980px) { #message { left: 120px; top: 548px; width: 500px; } }
+@media not all and (min-width: 980px) { #message { left: 20px; top: 300px; width: 270px; } }
+.start { position: absolute; width: 518px; text-align: center; }
+@media all and (min-width: 980px) { .start { left: 210px; top: 575px; } }
+@media not all and (min-width: 980px) { .start { left: 20px; top: 340px; width: 280px; } }
+.level-options label { margin: 0 4px; }
+.color-options, .diagonal-options { margin: 8px 0; }
+.color-options input[type="color"] { width: 30px; height: 20px; vertical-align: middle; cursor: pointer; }
+.start-button { padding: 8px 12px; margin: 4px; width: 95%; font-size: 14px; }
+
+@media not all and (min-width: 980px) { .start-button { font-size: large; } }
+
+
+#level-display { position: absolute; left: 750px; top: 75px; width: 140px; font-size: 14px; font-weight: bold; color: #333; }
+
+#undo-container { position: absolute; left: 610px; top: 543px; }
+#undo-container button { padding: 5px 12px; font-size: 13px; cursor: pointer; background-color: #fff9c4; border: 1px solid #999; border-radius: 5px; }
+#undo-container button:active { background-color: #ccc; }
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+#message {
+  animation: pulse 1.5s infinite;
+}
+
+.subtitle { position: absolute; left: 740px; top: 60px; width: 170px; text-align: right; font-size: 11px; color: #888; font-style: italic; }
+
+#extra-controls { position: absolute; left: 745px; top: 350px; width: 230px; display: flex; flex-direction: column; gap: 4px; }
+#extra-controls button { padding: 5px 6px; font-size: 11px; cursor: pointer; background-color: #fff9c4; border: 1px solid #999; border-radius: 4px; width: 100%; }
+#extra-controls button:active { background-color: #ccc; }
+.playable-highlight { box-shadow: 0 0 8px 3px #4f4 !important; outline: 2px solid #4f4 !important; }
+.advice-highlight { box-shadow: 0 0 12px 4px #ff4 !important; outline: 2px solid #ff4 !important; }
